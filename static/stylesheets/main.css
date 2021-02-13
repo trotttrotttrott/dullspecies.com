@@ -3,9 +3,25 @@ html, body {
 }
 
 body {
-  text-align: center;
+  font-family: monospace;
   background-color: #130706;
   background-image: url("/static/images/qd.png");
   background-position: center;
   background-repeat: no-repeat;
+}
+
+a {
+  color: #130706;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #441916;
+}
+
+.stuff {
+  display: inline-block;
+  background-color: #bb9895;
+  opacity: 0.5;
+  padding: 10px;
 }
