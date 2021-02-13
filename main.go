@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 func main() {
@@ -45,7 +46,13 @@ func serveTemplate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "layout", nil); err != nil {
+	iface := struct {
+		DeployID int64
+	}{
+		time.Now().Unix(),
+	}
+
+	if err := tmpl.ExecuteTemplate(w, "layout", iface); err != nil {
 		log.Println(err.Error())
 		http.Error(w, http.StatusText(500), 500)
 	}
