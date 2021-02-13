@@ -4,33 +4,5 @@ html, body {
 
 body {
   text-align: center;
-}
-
-.container {
-  height: 100%;
-}
-
-.row {
-  height: 50%;
-  position: relative;
-}
-
-.row.light {
-  background-color: #fff;
-  color: #000;
-}
-
-.row.dark {
-  background-color: #000;
-  color: #fff;
-}
-
-.row div {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-}
-
-.row div span {
-  margin: 0 10px;
+  background: #130706;
 }
