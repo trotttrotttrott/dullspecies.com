@@ -7,6 +7,16 @@
   <link rel="stylesheet" href="/static/stylesheets/normalize.css">
   <link rel="stylesheet" href="/static/stylesheets/main.css?{{.DeployID}}">
   <link rel="icon" type="image/png" href="/static/images/favicon.png">
+  {{if .Deploy}}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H8CVJK7FJ5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H8CVJK7FJ5');
+  </script>
+  {{end}}
 </head>
 <body>
   {{template "body"}}

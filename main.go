@@ -47,8 +47,10 @@ func serveTemplate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	iface := struct {
+		Deploy   bool
 		DeployID int64
 	}{
+		r.URL.Query().Get("deploy") == "true",
 		time.Now().Unix(),
 	}
 
