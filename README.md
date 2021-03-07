@@ -2,26 +2,18 @@
 
 The website.
 
+[![Build Status](https://cloud.drone.io/api/badges/trotttrotttrott/dullspecies.com/status.svg)](https://cloud.drone.io/trotttrotttrott/dullspecies.com)
+
 ## Dev
 
 Run local server with:
 
 ```
-make run
+make dev
 ```
 
 ## Deployment
 
-Currently run as a static site on GCS. Initial setup was done with:
+Uses GitHub pages.
 
-```
-gsutil mb -p dullspecies gs://dullspecies.com
-gsutil iam ch allUsers:objectViewer gs://dullspecies.com
-gsutil web set -m index.html gs://dullspecies.com
-```
-
-Update content with:
-
-```
-make deploy
-```
+Drone builds the site on pushes to `main`.
