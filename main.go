@@ -1,7 +1,10 @@
 package main
 
 import (
+	"context"
 	"html/template"
+	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -9,16 +12,41 @@ import (
 	"time"
 )
 
-func main() {
-	fs := http.FileServer(http.Dir("static"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	http.HandleFunc("/", serveTemplate)
+// whether to output static site files and exit instead of waiting for external requests.
+var buildSite = os.Getenv("BUILD_SITE") == "true"
 
-	log.Println("Listening...")
-	http.ListenAndServe(":3000", nil)
+func main() {
+	srv := &http.Server{Addr: ":3000"}
+	if buildSite {
+		build(srv)
+	} else {
+		listen(srv)
+	}
 }
 
-func serveTemplate(w http.ResponseWriter, r *http.Request) {
+// build outputs static site files.
+func build(srv *http.Server) {
+	go listen(srv)
+	resp, err := http.Get("http://localhost:3000/root.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	body, err := io.ReadAll(resp.Body)
+	err = ioutil.WriteFile("index.html", body, 0644)
+	srv.Shutdown(context.Background())
+}
+
+// listen waits for requests.
+func listen(srv *http.Server) {
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+	http.HandleFunc("/", serve)
+	srv.ListenAndServe()
+}
+
+// serve serves site content.
+func serve(w http.ResponseWriter, r *http.Request) {
 	lp := filepath.Join("templates", "layout.html")
 	fp := filepath.Join("templates", filepath.Clean(r.URL.Path))
 
@@ -47,10 +75,10 @@ func serveTemplate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	iface := struct {
-		Deploy   bool
-		DeployID int64
+		Build   bool
+		BuildID int64
 	}{
-		r.URL.Query().Get("deploy") == "true",
+		buildSite,
 		time.Now().Unix(),
 	}
 
