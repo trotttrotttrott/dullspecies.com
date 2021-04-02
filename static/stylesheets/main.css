@@ -19,6 +19,10 @@ a:hover {
   color: #441916;
 }
 
+.player {
+  opacity: 0.8;
+}
+
 .stuff {
   display: inline-block;
   background-color: #bb9895;
