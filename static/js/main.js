@@ -1,5 +1,4 @@
 let speed = 25;
-let scale = 1;
 let canvas;
 let ctx;
 let logoColor;
@@ -12,6 +11,7 @@ let dvd = {
   img: new Image()
 };
 
+// All images must be the same size for this to work
 let images = [
   'angry-pirate',
   'bunny-boy',
@@ -46,8 +46,8 @@ function update() {
     ctx.fillStyle = '#130706';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = logoColor;
-    ctx.fillRect(dvd.x, dvd.y, dvd.img.width*scale, dvd.img.height*scale);
-    ctx.drawImage(dvd.img, dvd.x, dvd.y, dvd.img.width*scale, dvd.img.height*scale);
+    ctx.fillRect(dvd.x, dvd.y, dvd.img.width, dvd.img.height);
+    ctx.drawImage(dvd.img, dvd.x, dvd.y, dvd.img.width, dvd.img.height);
     dvd.x+=dvd.xspeed;
     dvd.y+=dvd.yspeed;
     checkHitBox();
@@ -56,11 +56,11 @@ function update() {
 }
 
 function checkHitBox() {
-  if (dvd.x+dvd.img.width*scale >= canvas.width || dvd.x <= 0) {
+  if (dvd.x+dvd.img.width >= canvas.width || dvd.x <= 0) {
     dvd.xspeed *= -1;
     pickColor();
     changeImage();
-  } else if (dvd.y+dvd.img.height*scale >= canvas.height || dvd.y <= 0) {
+  } else if (dvd.y+dvd.img.height >= canvas.height || dvd.y <= 0) {
     dvd.yspeed *= -1;
     pickColor();
     changeImage();
