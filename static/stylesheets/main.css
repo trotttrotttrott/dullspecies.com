@@ -4,10 +4,6 @@ html, body {
 
 body {
   font-family: monospace;
-  background-color: #130706;
-  background-image: url("/static/images/qd.png");
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 a {
@@ -23,6 +19,12 @@ iframe {
   margin: 20px 0 20px 20px;
   width: 315px;
   height: 315px;
+  filter: drop-shadow(5px 5px 10px #000);
+}
+
+#main {
+  position: absolute;
+  z-index: 1;
 }
 
 .stuff {
@@ -32,4 +34,11 @@ iframe {
   background-color: #000;
   opacity: 0.7;
   position: absolute;
+}
+
+#dvd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
