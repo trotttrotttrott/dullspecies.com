@@ -41,7 +41,6 @@ let images = [
 
 function update() {
   setTimeout(() => {
-    ctx.fillStyle = '#130706';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = logoColor;
     ctx.fillRect(dvd.x, dvd.y, dvd.img.width, dvd.img.height);
