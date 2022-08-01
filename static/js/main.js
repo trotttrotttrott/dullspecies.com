@@ -1,4 +1,3 @@
-let speed = 30;
 let canvas;
 let ctx;
 let logoColor;
@@ -7,8 +6,8 @@ let currentImageIndex;
 let dvd = {
   x: 200,
   y: 300,
-  xspeed: 5,
-  yspeed: 5,
+  xspeed: 1,
+  yspeed: 1,
   img: new Image()
 };
 
@@ -51,7 +50,7 @@ function update() {
     dvd.y+=dvd.yspeed;
     checkHitBox();
     update();
-  }, speed)
+  }, 9)
 }
 
 function checkHitBox() {
