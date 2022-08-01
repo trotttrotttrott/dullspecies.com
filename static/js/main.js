@@ -1,7 +1,8 @@
-let speed = 25;
+let speed = 30;
 let canvas;
 let ctx;
 let logoColor;
+let currentImageIndex;
 
 let dvd = {
   x: 200,
@@ -30,12 +31,10 @@ let images = [
 ];
 
 (function main(){
-  canvas = document.getElementById("dvd");
-  ctx = canvas.getContext("2d");
-
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
+  canvas = document.getElementById('dvd');
+  ctx = canvas.getContext('2d');
+  canvasResize();
+  addEventListener('resize', canvasResize);
   pickColor();
   changeImage();
   update();
@@ -56,11 +55,12 @@ function update() {
 }
 
 function checkHitBox() {
-  if (dvd.x+dvd.img.width >= canvas.width || dvd.x <= 0) {
+  if (dvd.x+dvd.img.width > canvas.width || dvd.x <= 0) {
     dvd.xspeed *= -1;
     pickColor();
     changeImage();
-  } else if (dvd.y+dvd.img.height >= canvas.height || dvd.y <= 0) {
+  }
+  if (dvd.y+dvd.img.height > canvas.height || dvd.y <= 0) {
     dvd.yspeed *= -1;
     pickColor();
     changeImage();
@@ -75,5 +75,20 @@ function pickColor() {
 }
 
 function changeImage() {
-  dvd.img.src = `/static/images/dvd/${images[Math.floor(Math.random()*images.length)]}.png`;
+  let randomIndex = function() { return Math.floor(Math.random()*images.length); };
+  let newIndex = randomIndex();
+  while (currentImageIndex == newIndex) {
+    newIndex = randomIndex();
+  }
+  dvd.img.src = `/static/images/dvd/${images[newIndex]}.png`;
+  currentImageIndex = newIndex;
+}
+
+function canvasResize() {
+  if (dvd.x+dvd.img.width > window.innerWidth || dvd.y+dvd.img.height > window.innerHeight) {
+    setTimeout(canvasResize, 5000);
+    return;
+  }
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
