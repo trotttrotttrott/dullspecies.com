@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  background: #000;
 }
 
 body {
@@ -31,14 +32,13 @@ iframe {
   margin: 20px 0 20px 20px;
   padding: 20px;
   display: inline;
-  background-color: #000;
+  background-color: #333;
   opacity: 0.7;
   position: absolute;
 }
 
-#dvd {
+#doods {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 0;
 }
