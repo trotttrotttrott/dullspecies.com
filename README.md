@@ -12,6 +12,8 @@ Run local server with:
 make dev
 ```
 
+http://localhost:3000/root.html
+
 ## Deployment
 
 Uses GitHub pages.
